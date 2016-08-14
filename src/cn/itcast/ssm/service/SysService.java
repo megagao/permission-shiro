@@ -22,7 +22,7 @@ import cn.itcast.ssm.po.SysUser;
  * @date 2015-3-23上午11:29:48
  * @version 1.0
  */
-public interface SysService {
+public interface SysService{
 
     // 根据用户的身份和密码 进行认证，如果认证通过，返回用户身份信息
     public ActiveUser authenticat(String userCode, String password) throws Exception;

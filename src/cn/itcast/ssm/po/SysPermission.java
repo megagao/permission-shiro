@@ -1,6 +1,8 @@
 package cn.itcast.ssm.po;
 
-public class SysPermission {
+import java.io.Serializable;
+
+public class SysPermission implements Serializable{
     private Long id;
 
     private String name;

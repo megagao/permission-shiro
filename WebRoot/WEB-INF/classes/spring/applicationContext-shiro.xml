@@ -26,6 +26,15 @@
 
 		<!-- 指定没有权限时的拒绝访问页面 -->
 		<property name="unauthorizedUrl" value="/refuse.jsp" />
+		<property name="filters">
+			<map>
+				<!-- 将自定义的FormAuthenticationFilter注入到shiroFilter中 -->
+				<entry key="authc" value-ref="formAuthenticationFilter" />
+			</map>
+		</property>
+
+
+
 		<!-- 过滤器链定义，从上向下顺序执行，一般将/**放在最下边 -->
 		<property name="filterChainDefinitions">
 			<value>
@@ -34,11 +43,20 @@
 				/images/** = anon
 				/js/** = anon
 				/styles/** = anon
+
+				<!-- 验证码页面，可匿名访问 -->
+				/validatecode.jsp = anon
+
 				<!-- 请求logout.action这个地址自动退出 -->
 				/logout.action = logout
 
 				<!-- 商品查询需要商品查询，这种方式要取消掉，使用在controller里注解的方式 -->
 				<!-- /items/queryItems.action = perms[item:query] -->
+
+				<!-- 配置记住我或者认证通过可以访问的地址 -->
+				/index.jsp = user
+				/first.action = user
+				/welcome.jsp = user
 
 				<!-- 所有的url请求都必须认证通过才能访问 -->
 				/** = authc
@@ -51,15 +69,20 @@
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="userRealm" />
 		<!-- 注入缓存管理器 -->
-		<property name="cacheManager" ref="cacheManager"/>
+		<property name="cacheManager" ref="cacheManager" />
+		<!-- 注入会话管理器 -->
+		<property name="sessionManager" ref="sessionManager" />
+		<!-- 记住我 -->
+		<property name="rememberMeManager" ref="rememberMeManager" />
+
 	</bean>
 
 	<!-- realm 自定义 -->
 	<bean id="userRealm" class="cn.itcast.ssm.shiro.CustomRealm">
-	
+
 		<!-- 将凭证匹配器设置到realm当中，realm就会按照凭证匹配器的要求进行散列 -->
 		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
-		
+
 	</bean>
 
 	<!-- 凭证匹配器 -->
@@ -70,11 +93,44 @@
 	</bean>
 
 
+	<!-- 缓存管理器 -->
+	<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml" />
+	</bean>
 
-<!-- 缓存管理器 -->
-<bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-    	<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
-    </bean>
+
+	<!-- 会话管理器 -->
+	<bean id="sessionManager"
+		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+		<!-- session的失效时长，单位毫秒 -->
+		<property name="globalSessionTimeout" value="600000" />
+		<!-- 删除失效的session -->
+		<property name="deleteInvalidSessions" value="true" />
+	</bean>
+
+	<!-- 自定义的form认证过滤器 -->
+
+	<!-- 基于Form表单的身份验证过滤器，不配置将也会注册此过虑器，表单中的用户账号、密码及loginurl将采用默认值，建议配置 -->
+	<bean id="formAuthenticationFilter" class="cn.itcast.ssm.shiro.CustomFormAuthenticationFilter ">
+		<!-- 表单中账号的input名称 -->
+		<property name="usernameParam" value="username" />
+		<!-- 表单中密码的input名称 -->
+		<property name="passwordParam" value="password" />
+		<!-- 记住我inpu的名称 -->
+		<property name="rememberMeParam" value="rememberMe" />
+	</bean>
+
+	<!-- rememberMeManager管理器 -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+	<!-- 记住我cookie -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<!-- 记住我cookie生效时间30天 -->
+		<property name="maxAge" value="2592000" />
+	</bean>
+
 
 
 </beans>

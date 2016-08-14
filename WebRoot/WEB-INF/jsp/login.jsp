@@ -10,8 +10,10 @@
 
 <LINK rel="stylesheet" type="text/css" href="${baseurl}styles/style.css">
 <LINK rel="stylesheet" type="text/css" href="${baseurl}styles/login.css">
-<LINK rel="stylesheet" type="text/css"	href="${baseurl}js/easyui/themes/default/easyui.css">
-<LINK rel="stylesheet" type="text/css"	href="${baseurl}js/easyui/themes/icon.css">
+<LINK rel="stylesheet" type="text/css"
+	href="${baseurl}js/easyui/themes/default/easyui.css">
+<LINK rel="stylesheet" type="text/css"
+	href="${baseurl}js/easyui/themes/icon.css">
 
 <STYLE type="text/css">
 .btnalink {
@@ -32,16 +34,15 @@
 <%@ include file="/WEB-INF/jsp/common_js.jsp"%>
 
 <script type="text/javascript">
-
 	//登录提示方法
 	function loginsubmit() {
 		$("#loginform").submit();
 
 	}
-	
 </SCRIPT>
 </HEAD>
-<BODY style="background: #f6fdff url(${baseurl}images/login/bg1.jpg) repeat-x;">
+<BODY
+	style="background: #f6fdff url(${baseurl}images/login/bg1.jpg) repeat-x;">
 	<FORM id="loginform" name="loginform" action="${baseurl}login.action"
 		method="post">
 		<DIV class="logincon">
@@ -56,7 +57,7 @@
 
 			<DIV class="tab_con">
 
-				<input type="password" style="display:none;" />
+				<input type="password" style="display: none;" />
 				<TABLE class="tab" border="0" cellSpacing="6" cellPadding="8">
 					<TBODY>
 						<TR>
@@ -66,16 +67,21 @@
 						</TR>
 						<TR>
 							<TD>密 码：</TD>
-							<TD><input type="password" id="pwd" name="password" style="WIDTH: 130px" />
-							</TD>
+							<TD><input type="password" id="pwd" name="password"
+								style="WIDTH: 130px" /></TD>
 						</TR>
-						<%-- <TR>
+						<TR>
 							<TD>验证码：</TD>
 							<TD><input id="randomcode" name="randomcode" size="8" /> <img
 								id="randomcode_img" src="${baseurl}validatecode.jsp" alt=""
 								width="56" height="20" align='absMiddle' /> <a
 								href=javascript:randomcode_refresh()>刷新</a></TD>
-						</TR> --%>
+						</TR>
+
+						<tr>
+							<TD></TD>
+							<td><input type="checkbox" name="rememberMe" />自动登陆</td>
+						</tr>
 
 						<TR>
 							<TD colSpan="2" align="center"><input type="button"

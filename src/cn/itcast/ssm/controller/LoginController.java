@@ -85,11 +85,13 @@ public class LoginController {
 		throw new CustomException("账号不存在");
 	    } else if (IncorrectCredentialsException.class.getName().equals(exceptionClassName)) {
 		throw new CustomException("用户名/密码错误");
+	    } else if ("randomcodeError".equals(exceptionClassName)) {
+		throw new CustomException("验证码错误");
 	    } else {
 		throw new Exception();// 最终在异常处理器生成未知错误
 	    }
 	}
-	
+
 	// 此方法不处理登陆成功的跳转页面，shiro会自动认证，如果认证通过，就会自动跳转到上一个请求路径
 
 	// 登陆失败，回到login页面继续登陆
@@ -97,14 +99,14 @@ public class LoginController {
     }
 
     // 用户退出
-    /*@RequestMapping("/logout")
-    public String logout(HttpSession session) throws Exception {
-
-	// session失效
-	session.invalidate();
-	// 重定向到商品查询页面
-	return "redirect:/first.action";
-
-    }*/
+    /*
+     * @RequestMapping("/logout") public String logout(HttpSession session)
+     * throws Exception {
+     * 
+     * // session失效 session.invalidate(); // 重定向到商品查询页面 return
+     * "redirect:/first.action";
+     * 
+     * }
+     */
 
 }
