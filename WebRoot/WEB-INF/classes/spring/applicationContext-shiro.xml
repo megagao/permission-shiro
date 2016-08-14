@@ -1,0 +1,71 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+	<!-- web.xml中shiro的filter对应的bean -->
+	<!-- Shiro 的Web过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+
+		<!-- loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，请求此地址将由formAuthenticationFilter进行表单认证 -->
+		<property name="loginUrl" value="/login.action" />
+
+		<!-- 拦截后认证成功，shiro会自动跳转到上一个请求页面，建议不配置 -->
+		<!-- <property name="successUrl" value="/first.action" /> -->
+
+		<!-- 指定没有权限时的拒绝访问页面 -->
+		<property name="unauthorizedUrl" value="/refuse.jsp" />
+		<!-- 过滤器链定义，从上向下顺序执行，一般将/**放在最下边 -->
+		<property name="filterChainDefinitions">
+			<value>
+
+				<!-- 对静态资源设置为匿名访问 -->
+				/images/** = anon
+				/js/** = anon
+				/styles/** = anon
+				<!-- 请求logout.action这个地址自动退出 -->
+				/logout.action = logout
+
+				<!-- 商品查询需要商品查询，这种方式要取消掉，使用在controller里注解的方式 -->
+				<!-- /items/queryItems.action = perms[item:query] -->
+
+				<!-- 所有的url请求都必须认证通过才能访问 -->
+				/** = authc
+
+			</value>
+		</property>
+	</bean>
+
+	<!-- securityManager 安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="userRealm" />
+	</bean>
+
+	<!-- realm 自定义 -->
+	<bean id="userRealm" class="cn.itcast.ssm.shiro.CustomRealm">
+	
+		<!-- 将凭证匹配器设置到realm当中，realm就会按照凭证匹配器的要求进行散列 -->
+		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
+		
+	</bean>
+
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher"
+		class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5" />
+		<property name="hashIterations" value="2" />
+	</bean>
+
+
+</beans>
