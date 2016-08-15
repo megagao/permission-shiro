@@ -94,7 +94,6 @@ public class CustomRealm extends AuthorizingRealm {
 	try {
 	    sysUser = sysService.findSysUserByUserCode(userCode);
 	} catch (Exception e) {
-	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	}
 
