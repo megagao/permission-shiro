@@ -34,7 +34,6 @@
 		</property>
 
 
-
 		<!-- 过滤器链定义，从上向下顺序执行，一般将/**放在最下边 -->
 		<property name="filterChainDefinitions">
 			<value>
@@ -116,7 +115,7 @@
 		<property name="usernameParam" value="username" />
 		<!-- 表单中密码的input名称 -->
 		<property name="passwordParam" value="password" />
-		<!-- 记住我inpu的名称 -->
+		<!-- 记住我input的名称 -->
 		<property name="rememberMeParam" value="rememberMe" />
 	</bean>
 
@@ -130,7 +129,5 @@
 		<!-- 记住我cookie生效时间30天 -->
 		<property name="maxAge" value="2592000" />
 	</bean>
-
-
 
 </beans>

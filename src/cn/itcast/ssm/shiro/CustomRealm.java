@@ -101,6 +101,7 @@ public class CustomRealm extends AuthorizingRealm {
 	    return null;
 	}
 
+	// activeUser就是用户的身份信息
 	ActiveUser activeUser = new ActiveUser();
 	String password = sysUser.getPassword();
 
@@ -120,6 +121,9 @@ public class CustomRealm extends AuthorizingRealm {
 	}
 
 	activeUser.setMenus(menus);
+	
+//	new SimpleAuthenticationInfo(principal, hashedCredentials, credentialsSalt, realmName);
+	// 身份信息，密码，盐，realm的名字
 
 	SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(activeUser, password,
 		ByteSource.Util.bytes(salt), this.getName());

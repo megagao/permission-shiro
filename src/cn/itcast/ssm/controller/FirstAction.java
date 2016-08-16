@@ -13,7 +13,6 @@ public class FirstAction {
     // 系统首页
     @RequestMapping("/first")
     public String first(Model model) throws Exception {
-
 	
 	// 从shiro的session中取出activeUser
 	Subject subject = SecurityUtils.getSubject();

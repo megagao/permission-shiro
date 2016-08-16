@@ -31,7 +31,6 @@
 		<url-pattern>*.action</url-pattern>
 	</servlet-mapping>
 	
-	
 	<!-- shiro的filter -->
 	<!-- shiro过滤器，DelegatingFilterProxy通过代理模式将spring容器中的bean和filter关联起来 -->
 	<filter>
@@ -52,8 +51,6 @@
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	
 	
 	
 	<!-- post乱码处理 -->

@@ -95,5 +95,4 @@ org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
 		<property name="cacheSeconds" value="120" />
 	</bean>
 
-
 </beans>
