@@ -26,7 +26,6 @@ org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
 	</bean>
 
 
-
 	<!-- 通过annotation-driven可以替代下边的处理器映射器和适配器 -->
 	<mvc:annotation-driven conversion-service="conversionService"
 		validator="validator">
@@ -80,6 +79,7 @@ org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
 		<!-- 指定校验使用的资源文件，如果不指定则默认使用classpath下的ValidationMessages.properties -->
 		<property name="validationMessageSource" ref="messageSource" />
 	</bean>
+
 	<!-- 校验错误信息配置文件 -->
 	<bean id="messageSource"
 		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

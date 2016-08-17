@@ -32,7 +32,7 @@ public class CustomRealm extends AuthorizingRealm {
 	super.setName("customRealm");
     }
 
-    // 用于认证，未使用数据库进行连接
+    // // 用于认证，未使用数据库进行连接
     // @Override
     // protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken
     // token) throws AuthenticationException {
@@ -121,8 +121,9 @@ public class CustomRealm extends AuthorizingRealm {
 	}
 
 	activeUser.setMenus(menus);
-	
-//	new SimpleAuthenticationInfo(principal, hashedCredentials, credentialsSalt, realmName);
+
+	// new SimpleAuthenticationInfo(principal, hashedCredentials,
+	// credentialsSalt, realmName);
 	// 身份信息，密码，盐，realm的名字
 
 	SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(activeUser, password,
@@ -134,6 +135,8 @@ public class CustomRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 
+	// 从 principals获取主身份信息
+	// 将getPrimaryPrincipal方法返回值转为真实身份类型（在上边的doGetAuthenticationInfo认证通过填充到SimpleAuthenticationInfo中身份类型）
 	ActiveUser activeUser = (ActiveUser) principals.getPrimaryPrincipal();
 
 	// 模拟从数据库获取到权限信息
@@ -159,9 +162,9 @@ public class CustomRealm extends AuthorizingRealm {
 		permissions.add(permission.getPercode());
 	    }
 	}
-
+	// 查到权限数据，返回授权信息(要包括 上边的permissions)
 	SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-
+	// 将上边查询到授权信息填充到simpleAuthorizationInfo对象中
 	simpleAuthorizationInfo.addStringPermissions(permissions);
 
 	return simpleAuthorizationInfo;
