@@ -172,7 +172,9 @@ public class CustomRealm extends AuthorizingRealm {
 
     // 清除缓存
     public void clearCached() {
+	// 获取到用户凭证信息
 	PrincipalCollection principals = SecurityUtils.getSubject().getPrincipals();
+	// 调用AuthorizingRealm中的clearCache方法
 	super.clearCache(principals);
     }
 

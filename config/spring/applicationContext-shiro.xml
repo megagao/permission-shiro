@@ -33,7 +33,6 @@
 			</map>
 		</property>
 
-
 		<!-- 过滤器链定义，从上向下顺序执行，一般将/**放在最下边 -->
 		<property name="filterChainDefinitions">
 			<value>
@@ -66,6 +65,8 @@
 
 	<!-- securityManager 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		
+		<!-- 注入自定义的realm -->
 		<property name="realm" ref="userRealm" />
 		<!-- 注入缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" />
@@ -109,7 +110,7 @@
 
 	<!-- 自定义的form认证过滤器 -->
 
-	<!-- 基于Form表单的身份验证过滤器，不配置将也会注册此过虑器，表单中的用户账号、密码及loginurl将采用默认值，建议配置 -->
+	<!-- 基于Form表单的身份验证过滤器，不配置将也会注册此过滤器，表单中的用户账号、密码及loginurl将采用默认值，建议配置 -->
 	<bean id="formAuthenticationFilter" class="cn.itcast.ssm.shiro.CustomFormAuthenticationFilter ">
 		<!-- 表单中账号的input名称 -->
 		<property name="usernameParam" value="username" />
