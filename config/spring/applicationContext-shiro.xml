@@ -68,6 +68,8 @@
 		
 		<!-- 注入自定义的realm -->
 		<property name="realm" ref="userRealm" />
+		
+		
 		<!-- 注入缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" />
 		<!-- 注入会话管理器 -->
