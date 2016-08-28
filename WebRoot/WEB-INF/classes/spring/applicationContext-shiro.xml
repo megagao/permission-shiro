@@ -65,11 +65,12 @@
 
 	<!-- securityManager 安全管理器 -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		
+
 		<!-- 注入自定义的realm -->
 		<property name="realm" ref="userRealm" />
-		
-		
+
+		<!-- 配置第二个自定义的realm，待补充 -->
+
 		<!-- 注入缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" />
 		<!-- 注入会话管理器 -->
@@ -77,6 +78,11 @@
 		<!-- 记住我 -->
 		<property name="rememberMeManager" ref="rememberMeManager" />
 
+		<!-- 配置认证策略 
+		<property name="authenticator.authenticationStrategy">
+			<bean class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy" />
+		</property>
+		-->
 	</bean>
 
 	<!-- realm 自定义 -->
