@@ -26,6 +26,8 @@
 
 		<!-- 指定没有权限时的拒绝访问页面 -->
 		<property name="unauthorizedUrl" value="/refuse.jsp" />
+		
+		<!-- 自定义的filter -->
 		<property name="filters">
 			<map>
 				<!-- 将自定义的FormAuthenticationFilter注入到shiroFilter中 -->
@@ -69,7 +71,8 @@
 		<!-- 注入自定义的realm -->
 		<property name="realm" ref="userRealm" />
 
-		<!-- 配置第二个自定义的realm，待补充 -->
+		<!-- 配置第二个自定义的realm -->
+		<property name="realm2" ref="xxxRealm"/>
 
 		<!-- 注入缓存管理器 -->
 		<property name="cacheManager" ref="cacheManager" />
@@ -78,7 +81,8 @@
 		<!-- 记住我 -->
 		<property name="rememberMeManager" ref="rememberMeManager" />
 
-		<!-- 配置认证策略 
+		<!-- 配置认证策略 ，自定义也是这边 -->
+		<!-- 
 		<property name="authenticator.authenticationStrategy">
 			<bean class="org.apache.shiro.authc.pam.FirstSuccessfulStrategy" />
 		</property>
@@ -91,6 +95,11 @@
 		<!-- 将凭证匹配器设置到realm当中，realm就会按照凭证匹配器的要求进行散列 -->
 		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
 
+	</bean>
+	
+	<!-- 自定义的第二个reailm -->
+	<bean id="xxxRealm" class="cn.itcast.ssm.shiro.demoRealm">
+		<!-- 凭证匹配器 -->
 	</bean>
 
 	<!-- 凭证匹配器 -->

@@ -22,8 +22,8 @@
 			<!-- 配置文件的地址 如果不配置contextConfigLocation， 默认查找的配置文件名称classpath下的：servlet名称+"-serlvet.xml"即：springmvc-serlvet.xml -->
 			<param-value>classpath:spring/springmvc.xml</param-value>
 		</init-param>
-
 	</servlet>
+
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
 		<!-- 可以配置/ ，此工程 所有请求全部由springmvc解析，此种方式可以实现 RESTful方式，需要特殊处理对静态文件的解析不能由springmvc解析 
@@ -47,6 +47,7 @@
 			<param-value>shiroFilter</param-value>
 		</init-param>
 	</filter>
+	
 	<filter-mapping>
 		<filter-name>shiroFilter</filter-name>
 		<url-pattern>/*</url-pattern>
